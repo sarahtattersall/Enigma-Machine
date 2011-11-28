@@ -3,7 +3,9 @@
 #include "Mapper.hpp"
 #include <vector>
 
-
+// I don't think this class adds anything useful to the class heirarchy.
+// If you really want this stuff abstracted, it can be in a class used by the
+// other concrete implementations, rather than descended from.
 class Programmable_Mapper : public Mapper {
     protected:
         Programmable_Mapper();

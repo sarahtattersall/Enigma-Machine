@@ -24,7 +24,7 @@ void Machine::load_rotor_files()
         "Select files to open",
         QString::null,
         "Rotor files (*.rot)");
-        
+
         int i;
         for (i = 0; i < files.size(); i++){
             m_rotors.push_back( Rotor (files.at(i).toAscii().constData()) );
@@ -49,6 +49,10 @@ void Machine::load_plug_file()
  */
 char Machine::convert_to_char( int x )
 {
+  // The operation does not match the comment, the mod is much more.
+  // Should the mod even be here, I think I would rather the other operations
+  // ensured they only returned things in bounds, and this considered an out
+  // of bounds value to be a fatal error.
     return ( x % 26 ) + 'A';
 }
 
@@ -62,6 +66,9 @@ int Machine::convert_to_int( char x )
 
 void Machine::forward_rotor_pass( int& mapping )
 {
+  // for this an all other for loops, try to declare the iterating variable
+  // within the for statement, it's much safer and cleaner, and helps out the
+  // optimizer
     std::vector<Rotor>::iterator it;
     for( it = m_rotors.begin(); it != m_rotors.end(); it++ )
     {
@@ -86,7 +93,7 @@ void Machine::turn_rotors()
         if( !(*it).turn() )
         {
             break;
-        } 
+        }
     }
 }
 
@@ -105,7 +112,7 @@ void Machine::encrypt_text()
         for( itr = input.begin(); itr != input.end(); itr++ )
         {
             output.append(encrypt((*itr).toAscii()));
-        }    
+        }
         ui.outputText->setPlainText(output);
     }
     catch( const CharacterException& e )
@@ -125,17 +132,21 @@ void Machine::reset_rotors(){
     }
 }
 
-/* 
- * Encrpyts a char. 
- * If the char is A-Z  converts it to integer 
- * representation then passes through the plugboard, rotors, reflector, 
- * inverse rotors and finally back through the plugboard before 
+/*
+ * Encrpyts a char.
+ * If the char is A-Z  converts it to integer
+ * representation then passes through the plugboard, rotors, reflector,
+ * inverse rotors and finally back through the plugboard before
  * displaying it on screen.
  * If the char is white space it ignores it.
  * Anything else and it produces an error.
  */
 char Machine::encrypt( char x )
 {
+  // This is broken, isupper does not perform the same test that you rely on in
+  // convert_to_int, it understands non english upper case letters.
+  // In general, don't separate tests from operations when they are fundamentaly
+  // tied together, write a single operation and test it succeeds instead.
     if( isupper(x) )
     {
         int mapping = convert_to_int( x );
@@ -145,15 +156,23 @@ char Machine::encrypt( char x )
         inverse_rotor_pass( mapping );
         m_plugboard.map( mapping );
         turn_rotors();
+	// just return the result of the function.
+	// storing it in a variable for no purpose makes it look like you meant
+	// to put some more code in there but forgot.
         char letter = convert_to_char( mapping );
         return letter;
-    } 
+    }
     else if( isspace(x) )
     {
         return x;
     }
     else
     {
+      // why is this an error anyway? I would think you would rather support
+      // either pass through or stripping as options. Stripping is probably
+      // safer given that this ought to be a secure function. That would make
+      // it the same as space handling, which means you might as well not have
+      // the space test either.
         string message = "error ";
         message += x;
         message.append(" is not a valid character!");
