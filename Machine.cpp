@@ -42,6 +42,11 @@ void Machine::load_plug_file()
     m_plugboard.read_file( file.toAscii().constData() );
 }
 
+
+
+/*
+ * Converts an integer, x, to it's character representation.
+ */
 char Machine::convert_to_char( int x )
 {
   // The operation does not match the comment, the mod is much more.
@@ -54,6 +59,9 @@ char Machine::convert_to_char( int x )
     return ( x % 26 ) + 'A';
 }
 
+/*
+ * Converts a char, x, to it's integer representation.
+ */
 int Machine::convert_to_int( char x )
 {
     return x - 'A';
@@ -94,6 +102,9 @@ void Machine::turn_rotors()
     }
 }
 
+/*
+ * Encrypts one character at a time from the input text box
+ */
 void Machine::encrypt_text()
 {
     QString input = ui.inputText->toPlainText();
@@ -117,6 +128,7 @@ void Machine::encrypt_text()
     }
 }
 
+
 void Machine::reset_rotors(){
     std::vector<Rotor>::iterator it;
     for( it = m_rotors.begin(); it != m_rotors.end(); it++ )
@@ -125,6 +137,15 @@ void Machine::reset_rotors(){
     }
 }
 
+/*
+ * Encrpyts a char.
+ * If the char is A-Z  converts it to integer
+ * representation then passes through the plugboard, rotors, reflector,
+ * inverse rotors and finally back through the plugboard before
+ * displaying it on screen.
+ * If the char is white space it ignores it.
+ * Anything else and it produces an error.
+ */
 char Machine::encrypt( char x )
 {
   // This is broken, isupper does not perform the same test that you rely on in
