@@ -53,6 +53,9 @@ char Machine::convert_to_char( int x )
   // Should the mod even be here, I think I would rather the other operations
   // ensured they only returned things in bounds, and this considered an out
   // of bounds value to be a fatal error.
+  /* Could make a class for letters. Wrong in here but right method. All these should
+   *only take inbounds things and return inboudn things.
+   */
     return ( x % 26 ) + 'A';
 }
 
@@ -69,6 +72,8 @@ void Machine::forward_rotor_pass( int& mapping )
   // for this an all other for loops, try to declare the iterating variable
   // within the for statement, it's much safer and cleaner, and helps out the
   // optimizer
+  /* Locality, it stays in scope til end of method.
+  */
     std::vector<Rotor>::iterator it;
     for( it = m_rotors.begin(); it != m_rotors.end(); it++ )
     {
@@ -149,6 +154,8 @@ char Machine::encrypt( char x )
   // tied together, write a single operation and test it succeeds instead.
     if( isupper(x) )
     {
+        /* Could have it return -1 if it isnt an upper. Negative return values is OK for C++. 
+        */
         int mapping = convert_to_int( x );
         m_plugboard.map( mapping );
         forward_rotor_pass( mapping );
