@@ -11,7 +11,6 @@ class Mapper{
   // to reason about.
   // virtual int map (int) = 0;
   // Would be a lot cleaner.
- /* VERY EXPENSIVE!!!! */
         virtual void map( int& ) = 0;
 };
 

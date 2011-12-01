@@ -1,14 +1,9 @@
-Headers should always be full of comments, basic rule of commenting C++, comment on how to use at declaration, comment on implementation deatail at definition. Try to put public stuff first, rather than private.
+Headers should always be full of comments, basic rule of commenting C++, comment on how to use at declaration, comment on implementation deatail at definition.
 In general declarations go in headers, which means headers get the most comments.
 Never drop the names of parameters in headers, they are the best source of documentation. If you ignore it, you end up with
 int doSometing(int,int,bool,int,bool,bool) and you woun't have the faintest idea how to use it.
 
 Fundamental design is wrong
- - Think about whole design. What do you need, what do they need etc. Top-down.
- - 
 external looping vs object chaining
- - One rotor changes next rotor that changes the next rotor etc.
 machine could be interchangable with any Mapper
 UI should never be mixed in with operational functionality
- - Self contained.
- - Small isolated units of code. Encapsulation.

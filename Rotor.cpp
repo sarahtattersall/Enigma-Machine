@@ -8,9 +8,6 @@
 // mappings and rev_mappings are both not initialized, and read_file
 // does not verify that it fills in all the values.
 // also nothing verifies that read_file was ever even called.
-/*
- * Again private constructor, public factory method. 
- */
 
 using namespace::std;
 
