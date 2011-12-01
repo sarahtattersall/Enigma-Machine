@@ -13,10 +13,6 @@ Plugboard::Plugboard()
     }
 }
 
-/*
- * Reads the plugboard file, representing the pairings in m_mappings.
- * Displays error if fails to open.
- */
 void Plugboard::read_file( const char* file_name )
 {
     string input;
@@ -40,9 +36,6 @@ void Plugboard::read_file( const char* file_name )
     }
 }
 
-/*
- * Maps an int to it's representing integer representation of a character
- */
 void Plugboard::map( int &x )
 {
     x = m_mappings[x];
