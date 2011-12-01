@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'enigmamachine.ui'
 **
-** Created: Sat Nov 19 19:22:31 2011
-**      by: Qt User Interface Compiler version 4.7.4
+** Created: Thu Dec 1 22:48:38 2011
+**      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/

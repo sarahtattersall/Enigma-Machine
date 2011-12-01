@@ -1,14 +1,14 @@
 /********************************************************************************
 ** Form generated from reading UI file 'enigmamachine.ui'
 **
-** Created: Sun Nov 6 14:47:56 2011
+** Created: Thu Dec 1 23:28:53 2011
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_ENIGMAMACHINE_H
-#define UI_ENIGMAMACHINE_H
+#ifndef ENIGMAMACHINE_H
+#define ENIGMAMACHINE_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -130,4 +130,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_ENIGMAMACHINE_H
+#endif // ENIGMAMACHINE_H
