@@ -4,7 +4,9 @@
 
 class Reflector : public Mapper{
     public:
-        void map( int& );
+        // Maps an integer to another given integer represeting a character using
+        // the provided formula.
+        void map( int& x );
 };
 
 #endif
