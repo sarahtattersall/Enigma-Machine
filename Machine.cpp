@@ -48,8 +48,7 @@ int Machine::forward_rotor_pass( int mapping )
   // optimizer
   /* Locality, it stays in scope til end of method.
   */
-    std::vector<Rotor>::iterator it;
-    for( it = m_rotors.begin(); it != m_rotors.end(); it++ )
+    for( std::vector<Rotor>::iterator it = m_rotors.begin(); it != m_rotors.end(); it++ )
     {
         mapping = (*it).map( mapping );
     }
@@ -58,8 +57,7 @@ int Machine::forward_rotor_pass( int mapping )
 
 int Machine::inverse_rotor_pass( int mapping )
 {
-    std::vector<Rotor>::reverse_iterator rit;
-    for( rit = m_rotors.rbegin(); rit != m_rotors.rend(); rit++ )
+    for( std::vector<Rotor>::reverse_iterator rit = m_rotors.rbegin(); rit != m_rotors.rend(); rit++ )
     {
         mapping = (*rit).reverse_map( mapping );
     }
@@ -68,8 +66,7 @@ int Machine::inverse_rotor_pass( int mapping )
 
 void Machine::turn_rotors()
 {
-    std::vector<Rotor>::iterator it;
-    for( it = m_rotors.begin(); it != m_rotors.end(); it++ )
+    for( std::vector<Rotor>::iterator it = m_rotors.begin(); it != m_rotors.end(); it++ )
     {
         if( !(*it).turn() )
         {
@@ -79,8 +76,7 @@ void Machine::turn_rotors()
 }
 
 void Machine::reset_rotors(){
-    std::vector<Rotor>::iterator it;
-    for( it = m_rotors.begin(); it != m_rotors.end(); it++ )
+    for( std::vector<Rotor>::iterator it = m_rotors.begin(); it != m_rotors.end(); it++ )
     {
         (*it).reset();
     }

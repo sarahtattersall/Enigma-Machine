@@ -37,13 +37,12 @@ void MachineGUI::load_plug_file()
 void MachineGUI::encrypt_text()
 {
     QString input = ui.inputText->toPlainText();
-    QString::iterator itr;
     ui.outputText->clear();
     m_machine->reset_rotors();
     QString output;
     try
     {
-        for( itr = input.begin(); itr != input.end(); itr++ )
+        for( QString::iterator itr = input.begin(); itr != input.end(); itr++ )
         {
             output.append(m_machine->encrypt((*itr).toAscii()));
         }
