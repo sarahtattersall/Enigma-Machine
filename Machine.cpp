@@ -1,11 +1,9 @@
 #include "Machine.hpp"
-#include <QtGui/QtGui>
 #include <ctype.h>
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string>
-#include <algorithm>
 #include "CharacterException.hpp"
 using namespace::std;
 
