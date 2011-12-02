@@ -9,37 +9,19 @@
 #include "CharacterException.hpp"
 using namespace::std;
 
-Machine::Machine( QWidget *parent ): QMainWindow(parent)
-{
-    ui.setupUi( this );
-    connect(  ui.rotorsButton, SIGNAL( clicked()), this, SLOT( load_rotor_files() ) );
-    connect( ui.plugboardButton, SIGNAL( clicked()), this, SLOT( load_plug_file() ) );
-    connect( ui.encodeButton, SIGNAL( clicked()), this, SLOT( encrypt_text() ) );
+Machine::Machine(){
+    
 }
 
-void Machine::load_rotor_files()
+void Machine::load_rotor_file( const char* file_name )
 {
-    QStringList files = QFileDialog::getOpenFileNames(
-        this,
-        "Select files to open",
-        QString::null,
-        "Rotor files (*.rot)");
-
-        int i;
-        for (i = 0; i < files.size(); i++){
-            m_rotors.push_back( Rotor (files.at(i).toAscii().constData()) );
-        }
+    m_rotors.push_back( Rotor(file_name) );
 }
 
 
-void Machine::load_plug_file()
+void Machine::load_plug_file( const char* file_name )
 {
-    QString file = QFileDialog::getOpenFileName(
-        this,
-        "Choose a file to open",
-        QString::null,
-        "Plugboard files (*.pb)");
-    m_plugboard.read_file( file.toAscii().constData() );
+    m_plugboard.read_file( file_name );
 }
 
 char Machine::convert_to_char( int x )
@@ -96,29 +78,6 @@ void Machine::turn_rotors()
     }
 }
 
-void Machine::encrypt_text()
-{
-    QString input = ui.inputText->toPlainText();
-    QString::iterator itr;
-    ui.outputText->clear();
-    reset_rotors();
-    QString output;
-    try
-    {
-        for( itr = input.begin(); itr != input.end(); itr++ )
-        {
-            output.append(encrypt((*itr).toAscii()));
-        }
-        ui.outputText->setPlainText(output);
-    }
-    catch( const CharacterException& e )
-    {
-        QErrorMessage error;
-        error.showMessage(e.what());
-        error.exec();
-    }
-}
-
 void Machine::reset_rotors(){
     std::vector<Rotor>::iterator it;
     for( it = m_rotors.begin(); it != m_rotors.end(); it++ )
@@ -147,8 +106,7 @@ char Machine::encrypt( char x )
 	// just return the result of the function.
 	// storing it in a variable for no purpose makes it look like you meant
 	// to put some more code in there but forgot.
-        char letter = convert_to_char( mapping );
-        return letter;
+        return convert_to_char( mapping );
     }
     else if( isspace(x) )
     {

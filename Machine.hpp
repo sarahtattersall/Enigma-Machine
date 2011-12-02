@@ -6,11 +6,9 @@
 #include "EnigmaMachine.hpp"
 #include "CharacterException.hpp"
 
-class Machine : public QMainWindow{
-        Q_OBJECT
-    
+class Machine {
     public:
-        Machine(QWidget *parent = 0);
+        Machine();
         
         // Encrpyts a char.
         // If the char is A-Z  converts it to integer
@@ -20,13 +18,9 @@ class Machine : public QMainWindow{
         // If the char is white space it ignores it.
         // Anything else and it produces an error.
         char encrypt( char x );
-
-    public slots:
-        void load_rotor_files();
-        void load_plug_file();
-        
-        // Encrypts one character at a time from the input text box
-        void encrypt_text();
+        void load_rotor_file( const char* file_name );
+        void load_plug_file( const char* file_name );
+        void reset_rotors();
     
     private:
         std::vector<Rotor> m_rotors;
@@ -41,7 +35,6 @@ class Machine : public QMainWindow{
         int forward_rotor_pass( int mapping );
         int inverse_rotor_pass( int mapping );
         void turn_rotors();
-        void reset_rotors();
 
 };
 
