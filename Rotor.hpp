@@ -1,10 +1,10 @@
 #ifndef ROTOR_HPP
 #define ROTOR_HPP
-#include "Programmable_Mapper.hpp"
+#include "Mapper.hpp"
 #include "Notch.hpp"
 #include <vector>
 
-class Rotor : public Programmable_Mapper{
+class Rotor : public Mapper{
     public:
         Rotor( const char* rotor_file );
         
@@ -24,7 +24,8 @@ class Rotor : public Programmable_Mapper{
         // Calls mod function for cases when result could be negative, i.e. when applying
         // the wire mappings.
         int reverse_map( int x );
-    private:
+    private:    
+        std::vector<int> m_mappings;
         std::vector<int> m_rev_mappings;        
         int m_a_offset;
         

@@ -1,8 +1,8 @@
 #ifndef PLUGBOARD_HPP
 #define PLUGBOARD_HPP
-#include "Programmable_Mapper.hpp"
-
-class Plugboard : public Programmable_Mapper{
+#include "Mapper.hpp"
+#include <vector>
+class Plugboard : public Mapper{
     public:
         Plugboard();
         
@@ -12,6 +12,9 @@ class Plugboard : public Programmable_Mapper{
         
         // Maps an int to it's representing integer representation of a character
         int map( int x );
+        
+    private:    
+        std::vector<int> m_mappings;
 };
 
 #endif

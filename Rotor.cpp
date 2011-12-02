@@ -14,7 +14,7 @@
 
 using namespace::std;
 
-Rotor::Rotor( const char* rotor_file ) : m_rev_mappings(26)
+Rotor::Rotor( const char* rotor_file ) : m_mappings(26), m_rev_mappings(26)
 {
     read_file( rotor_file );
     reset();

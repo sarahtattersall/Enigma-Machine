@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 using namespace::std;
-Plugboard::Plugboard()
+Plugboard::Plugboard() : m_mappings(26)
 {
     int i;
     for( i = 0; i < m_mappings.size(); i++ ){
