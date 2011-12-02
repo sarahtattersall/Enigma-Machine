@@ -1,6 +1,6 @@
 #include "Reflector.hpp"
 
-void Reflector::map( int &x )
+int Reflector::map( int x )
 {
-    x = ( x + 13 ) % 26;
+    return ( x + 13 ) % 26;
 }

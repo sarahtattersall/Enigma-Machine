@@ -11,7 +11,7 @@ class Plugboard : public Programmable_Mapper{
         void read_file( const char* file_name );
         
         // Maps an int to it's representing integer representation of a character
-        void map( int& );
+        int map( int x );
 };
 
 #endif

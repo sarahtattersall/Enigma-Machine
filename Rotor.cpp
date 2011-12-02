@@ -65,14 +65,14 @@ void Rotor::read_file( const char* file_name )
 }
 
 
-void Rotor::map( int &x )
+int Rotor::map( int x )
 {
-    x = mod( m_mappings[( m_a_offset + x ) % 26] + x, 26 );
+    return mod( m_mappings[( m_a_offset + x ) % 26] + x, 26 );
 }
 
-void Rotor::reverse_map( int &x )
+int Rotor::reverse_map( int x )
 {
-    x = mod( m_rev_mappings[ ( m_a_offset + x ) % 26 ] + x, 26 );
+    return mod( m_rev_mappings[ ( m_a_offset + x ) % 26 ] + x, 26 );
 }
 
 bool Rotor::turn()

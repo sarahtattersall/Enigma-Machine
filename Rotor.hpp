@@ -18,12 +18,12 @@ class Rotor : public Programmable_Mapper{
         // position in m_mappings that A represents. Shifts accoridng to m_a_offset
         // Calls mod function for cases when result could be negative, i.e. when applying
         // the wire mappings.
-        void map( int& x );
+        int map( int x );
         
         // Inversley maps a character to it's original character.
         // Calls mod function for cases when result could be negative, i.e. when applying
         // the wire mappings.
-        void reverse_map( int& x );
+        int reverse_map( int x );
     private:
         std::vector<int> m_rev_mappings;        
         int m_a_offset;

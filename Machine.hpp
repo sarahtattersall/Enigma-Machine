@@ -38,8 +38,8 @@ class Machine : public QMainWindow{
         
         // Converts a char, x, to it's integer representation.
         int convert_to_int( char x );
-        void forward_rotor_pass( int& mapping );
-        void inverse_rotor_pass( int& mapping );
+        int forward_rotor_pass( int mapping );
+        int inverse_rotor_pass( int mapping );
         void turn_rotors();
         void reset_rotors();
 

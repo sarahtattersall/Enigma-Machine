@@ -59,7 +59,7 @@ int Machine::convert_to_int( char x )
     return x - 'A';
 }
 
-void Machine::forward_rotor_pass( int& mapping )
+int Machine::forward_rotor_pass( int mapping )
 {
   // for this an all other for loops, try to declare the iterating variable
   // within the for statement, it's much safer and cleaner, and helps out the
@@ -69,17 +69,19 @@ void Machine::forward_rotor_pass( int& mapping )
     std::vector<Rotor>::iterator it;
     for( it = m_rotors.begin(); it != m_rotors.end(); it++ )
     {
-        (*it).map( mapping );
+        mapping = (*it).map( mapping );
     }
+    return mapping;
 }
 
-void Machine::inverse_rotor_pass( int& mapping )
+int Machine::inverse_rotor_pass( int mapping )
 {
     std::vector<Rotor>::reverse_iterator rit;
     for( rit = m_rotors.rbegin(); rit != m_rotors.rend(); rit++ )
     {
-        (*rit).reverse_map( mapping );
+        mapping = (*rit).reverse_map( mapping );
     }
+    return mapping;
 }
 
 void Machine::turn_rotors()

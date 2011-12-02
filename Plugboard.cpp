@@ -36,7 +36,7 @@ void Plugboard::read_file( const char* file_name )
     }
 }
 
-void Plugboard::map( int &x )
+int Plugboard::map( int x )
 {
-    x = m_mappings[x];
+    return m_mappings[x];
 }
