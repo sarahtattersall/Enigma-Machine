@@ -7,7 +7,16 @@ class MachineGUI : public QMainWindow{
         Q_OBJECT
     
     public:
-        MachineGUI(Machine *machine, QWidget *parent = 0);
+        MachineGUI(Transformer* transformer, QWidget* parent = 0);
+            Sink sink_;
+            Receptor* machine_;
+
+            int encode(int value) {
+              if (!machine_->encode(value)) {
+                // encode failed
+              }
+              return sink_.value();
+            }
 
     public slots:
         // Calls machines load_rotor_file one rotor at a time.

@@ -3,7 +3,10 @@
 
 MachineGUI::MachineGUI( Machine *machine, QWidget *parent ): QMainWindow(parent)
 {
-    m_machine = machine;
+    if (!transformer.bind(&m_sink)) {
+    // Failed to bind
+    }
+    m_machine = transformer;
     ui.setupUi( this );
     connect(  ui.rotorsButton, SIGNAL( clicked()), this, SLOT( load_rotor_files() ) );
     connect( ui.plugboardButton, SIGNAL( clicked()), this, SLOT( load_plug_file() ) );

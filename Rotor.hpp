@@ -2,11 +2,19 @@
 #define ROTOR_HPP
 #include "Mapper.hpp"
 #include "Notch.hpp"
+#include "Transformer.hpp"
 #include <vector>
+
+
 
 class Rotor : public Mapper{
     public:
         Rotor( const char* rotor_file );
+        
+        Transformer& forward() { return m_forward; }
+        
+        Transformer& backward() { return m_backward; }
+        
         
         // Implements a turn of the rotor by increasing m_a_offset
         bool turn();
