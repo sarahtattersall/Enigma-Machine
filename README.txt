@@ -1,0 +1,4 @@
+List of things unsure about:
+Firstly what you do with the value of encode. 
+ -  If you push it you surely had to know that you were binding a sink which violates binding only a receptor (not a sink)
+Pointers vs. Reference.
