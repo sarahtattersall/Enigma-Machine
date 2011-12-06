@@ -1,16 +1,17 @@
 #ifndef NOTCH_HPP
 #define NOTCH_HPP
+#include "EnigmaLetter.hpp"
 #include <vector>
 
 class Notch{
     public:
         bool is_empty();
-        void add( int );
+        void add( EnigmaLetter letter );
         // Checks to see if position x on the rotor is in m_positions.
-        bool correct_position( int );
+        bool correct_position( EnigmaLetter position );
 
     private:
-        std::vector<int> m_positions;
+        std::vector<EnigmaLetter> m_positions;
     
 };
 

@@ -5,16 +5,24 @@
 #include <stdlib.h>
 
 using namespace::std;
+// TODO: FIGURE OUT WHAT TO DO WITH ENCODE
+bool Plugboard::encode( EnigmaLetter letter )
+{
+    // m_mappings[letter.to_int()];
+    return true;
+}
+
 Plugboard::Plugboard() : m_mappings(26)
 {
     int i;
     for( i = 0; i < m_mappings.size(); i++ ){
-        m_mappings[i] = i;
+        m_mappings[i] = EnigmaLetter(i);
     }
 }
 
-void Plugboard::read_file( const char* file_name )
+static Transformer* Plugboard::load_plugboard( const char* file_name )
 {
+    Plugboard* plugboard = new Plugboard();
     string input;
     ifstream plug_file ( file_name );
     if( plug_file.is_open() )
@@ -25,8 +33,8 @@ void Plugboard::read_file( const char* file_name )
             int first_value = atoi( input.c_str() );
             getline( plug_file, input, ' ' );
             int second_value = atoi( input.c_str() );
-            m_mappings[first_value] = second_value;
-            m_mappings[second_value] = first_value;
+            plugboard->m_mappings[first_value] = EnigmaLetter(second_value);
+            plugboard->m_mappings[second_value] = EnigmaLetter(first_value);
         }
     }
     else
@@ -34,9 +42,5 @@ void Plugboard::read_file( const char* file_name )
         cerr << "Error opening " << file_name << endl;
         exit(1);
     }
-}
-
-int Plugboard::map( int x )
-{
-    return m_mappings[x];
+    return plugboard;
 }

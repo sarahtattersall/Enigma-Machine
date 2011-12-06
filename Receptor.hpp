@@ -1,8 +1,9 @@
 #ifndef "RECEPTOR_HPP"
 #define "RECEPTOR_HPP"
+#include "EnigmaLetter.hpp"
 
 class Receptor {
-    bool encode(int value) = 0;
+    bool encode(EnigmaLetter letter) = 0;
 };
 
 #endif

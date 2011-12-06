@@ -1,20 +1,20 @@
 #ifndef PLUGBOARD_HPP
 #define PLUGBOARD_HPP
-#include "Mapper.hpp"
+#include "Transformer.hpp"
+#include "EnigmaLetter.hpp"
 #include <vector>
-class Plugboard : public Mapper{
+class Plugboard : public Transformer{
     public:
-        Plugboard();
-        
         // Reads the plugboard file, representing the pairings in m_mappings.
         // Displays error if fails to open.
-        void read_file( const char* file_name );
+        static Transformer* load_plugboard( const char* file_name );
         
         // Maps an int to it's representing integer representation of a character
-        int map( int x );
+        bool encode( EnigmaLetter letter );
         
-    private:    
-        std::vector<int> m_mappings;
+    private:
+        Plugboard();    
+        std::vector<EnigmaLetter> m_mappings;
 };
 
 #endif

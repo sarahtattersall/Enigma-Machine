@@ -14,24 +14,9 @@
 
 using namespace::std;
 
-Rotor::Rotor( const char* rotor_file ) : m_mappings(26), m_rev_mappings(26)
+void Rotor::load_rotor( const char* file_name )
 {
-    read_file( rotor_file );
-    reset();
-}
-
-int Rotor::mod( int x, int m )
-{
-    x %= m;
-    return x < 0 ? x + m : x;
-}
-
-void Rotor::reset(){
-    m_a_offset = 0;
-}
-
-void Rotor::read_file( const char* file_name )
-{
+    Rotor* rotor = new Rotor();
     string input;
     ifstream rotor_file ( file_name);
     if( rotor_file.is_open() )
@@ -47,14 +32,14 @@ void Rotor::read_file( const char* file_name )
             else
             {
                 int value = atoi( input.c_str() );
-                m_mappings[i] = value - i;
-                m_rev_mappings[value] = i - value;
+                rotor->m_mappings[i] = EnigmaLetter(value - i);
+                rotor->m_rev_mappings[value] = EnigmaLetter(i - value);
                 ++i;
             }
         }
         if( m_notch.is_empty() )
         {
-            m_notch.add(0);
+            m_notch.add(EnigmaLetter(0));
         }
     }
     else
@@ -62,8 +47,40 @@ void Rotor::read_file( const char* file_name )
         cerr << "Error opening " << file_name << endl;
         exit(1);
     }
+    return rotor;
 }
 
+Rotor::Rotor() : m_mappings(26), m_rev_mappings(26)
+{
+    m_forward = create_forward_transformer();
+    m_backward = create_backward_transformer()
+}
+
+Rotor::~Rotor(){
+    delete m_forward;
+    delete m_backward;
+}
+
+Transformer* Rotor::create_forward_transformer(){
+    Transformer* forward = new Transformer();
+    return forward;
+}
+
+
+Transformer* Rotor::create_backward_transformer(){
+    Transformer* backward = new Transformer() ;
+    return backward;
+}
+
+int Rotor::mod( int x, int m )
+{
+    x %= m;
+    return x < 0 ? x + m : x;
+}
+
+void Rotor::reset(){
+    m_a_offset = 0;
+}
 
 int Rotor::map( int x )
 {

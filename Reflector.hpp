@@ -1,12 +1,12 @@
 #ifndef REFLECTOR_HPP
 #define REFLECTOR_HPP
-#include "Mapper.hpp"
+#include "EnigmaLetter.hpp"
 
-class Reflector : public Mapper{
+class Reflector : public Transformer{
     public:
         // Maps an integer to another given integer represeting a character using
         // the provided formula.
-        int map( int x );
+        bool encode( EnigmaLetter letter );
 };
 
 #endif

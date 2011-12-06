@@ -1,6 +1,8 @@
 #include "Reflector.hpp"
 
-int Reflector::map( int x )
+// TODO: FIGURE OUT WHAT TO DO WITH ENCODE
+bool Reflector::encode( EnigmaLetter letter )
 {
-    return ( x + 13 ) % 26;
+    // letter + EnigmaLetter('N');
+    return true;
 }

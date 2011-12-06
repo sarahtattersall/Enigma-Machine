@@ -2,14 +2,14 @@
 #include <algorithm>
 
 using namespace::std;
-void Notch::add( int x )
+void Notch::add( EnigmaLetter letter )
 {
-    m_positions.push_back(x);
+    m_positions.push_back(letter);
 }
 
-bool Notch::correct_position( int x )
+bool Notch::correct_position( int position )
 {
-    return find(m_positions.begin(), m_positions.end(), x) != m_positions.end();
+    return find(m_positions.begin(), m_positions.end(), position) != m_positions.end();
 }
 
 bool Notch::is_empty()
