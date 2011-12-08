@@ -4,26 +4,31 @@
 class EnigmaLetter{
     public:
         // Constructs letter from char
+        // 
         EnigmaLetter( char value );
         
         // Constructs letter from integer representation
-        EnigmaLetter( int value );
+        // EnigmaLetter( int value );
+
         
         // Overrides + operator
-        EnigmaLetter operator+(const EnigmaLetter& letter);
+        EnigmaLetter operator+(const EnigmaLetter& letter) const;
         
         // Overrides - operator
-        EnigmaLetter operator-(const EnigmaLetter& letter);
+        // type of this is const
+        EnigmaLetter operator-(const EnigmaLetter& letter) const;
         
         // Overrides = operator
         EnigmaLetter operator=(const EnigmaLetter& letter);
 
-        char to_char();
-        int to_int();
+        char to_char() const;
+        int to_int() const;
         
     private:
+        EnigmaLetter();
+        static const int m_error_value;
         int m_representation;
-        int mod( int value, int mod_value );
+        int mod( int value, int mod_value ) const;
 };
 
 #endif
