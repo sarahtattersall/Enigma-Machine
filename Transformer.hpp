@@ -1,5 +1,5 @@
-    #ifndef "TRANSFORMER_HPP"
-#define "TRANSFORMER_HPP"
+#ifndef TRANSFORMER_HPP
+#define TRANSFORMER_HPP
 #include "Receptor.hpp"
 #include "Source.hpp"
 
