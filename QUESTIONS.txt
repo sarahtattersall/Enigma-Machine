@@ -1,5 +1,3 @@
-List of things unsure about:
-Firstly what you do with the value of encode. 
- -  If you push it you surely had to know that you were binding a sink which violates binding only a receptor (not a sink)
- * Actually think you call binded receptor on it
-Pointers vs. Reference.
+What's better have set next rotor method or default parameter in constructor?
+Is it bad to have made m_a_offset an Enigma Letter in Rotor?
+Changed forward() and backward() to return a transformer pointer. Why did Ian have reference?
