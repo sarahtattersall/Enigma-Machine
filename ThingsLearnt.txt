@@ -1,0 +1,8 @@
+Important C++ Lessons:
+- Always add variable names in header files.
+- Always comment headers, not cpp files.
+- Can have default parameters in C++
+- Should try to implement smart pointers (automatically destroyed) - Boost 
+- Try to only pass const items by reference, otherwise pass pointer.
+- Don't worry too much about const - it's quite misleading (you can still modify things that you call const). However can make a method
+const if it doesn't alter itself.
