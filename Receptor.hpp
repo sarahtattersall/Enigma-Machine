@@ -3,7 +3,7 @@
 #include "EnigmaLetter.hpp"
 
 class Receptor {
-    bool encode(EnigmaLetter letter) = 0;
+    virtual bool encode(EnigmaLetter letter) = 0;
 };
 
 #endif
