@@ -5,11 +5,10 @@
 #include <stdlib.h>
 
 using namespace::std;
-// TODO: FIGURE OUT WHAT TO DO WITH ENCODE
+// TODO: CHECK IF M_RECEPTOR SET
 bool Plugboard::encode( EnigmaLetter letter )
 {
-    // m_mappings[letter.to_int()];
-    return true;
+    return m_receptor->encode(m_mappings[letter.to_int()]);
 }
 
 Plugboard::Plugboard() : m_mappings(26)
