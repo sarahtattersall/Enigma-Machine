@@ -3,6 +3,5 @@
 // TODO: FIGURE OUT WHAT TO DO WITH ENCODE
 bool Reflector::encode( EnigmaLetter letter )
 {
-    // letter + EnigmaLetter('N');
-    return true;
+    return m_receptor->encode(letter + EnigmaLetter('N'));
 }
