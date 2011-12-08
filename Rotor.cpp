@@ -87,7 +87,7 @@ Transformer& Rotor::forward(){
 //     return backward;
 // }
 
-bool Rotor::encode(EnigmaLetter letter, bool forwards){
+EnigmaLetter Rotor::encode(EnigmaLetter letter, bool forwards){
     if (forwards){
         return m_mappings[(m_a_offset + letter)] + letter;
     } else{

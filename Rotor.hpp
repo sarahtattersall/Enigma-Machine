@@ -32,10 +32,11 @@ class Rotor {
     private:    
         class RotorTransformer : public Transformer {
             RotorTransformer(Rotor* rotor, bool forwards) : m_rotor(rotor), m_forwards(forwards) {}
-            bool encode(EnigmaLetter value) { m_rotor->encode(value, m_forwards); }
+            bool encode(EnigmaLetter value) { m_receptor.encode(m_rotor->encode(value, m_forwards)); }
         };
         
-        bool encode(EnigmaLetter letter, bool forwards);
+        // Changed from bool to EnigmaLetter. Is this right?
+        EnigmaLetter encode(EnigmaLetter letter, bool forwards);
         Rotor();
         Rotor* m_next_rotor;
         RotorTransformer m_forward;
