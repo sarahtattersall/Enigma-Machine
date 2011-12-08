@@ -9,14 +9,15 @@
 
 class Rotor {
     public:
+        Rotor( Rotor* next_rotor = null );
+        ~Rotor();
         
         Transformer& forward();
         Transformer& backward();
         static Transformer* load_rotor( const char* file_name );
-        
-        
         // Implements a turn of the rotor by increasing m_a_offset
-        bool turn();
+        // Also turns next rotor if nessesary.
+        void turn();
         
         // Resets rotor to starting position
         void reset();
@@ -26,20 +27,22 @@ class Rotor {
         // Calls mod function for cases when result could be negative, i.e. when applying
         // the wire mappings.
         // bool encode( int x );
-        
-        // Inversley maps a character to it's original character.
-        // Calls mod function for cases when result could be negative, i.e. when applying
-        // the wire mappings.
-        int reverse_map( int x );
+
         
     private:    
+        class RotorTransformer : public Transformer {
+            RotorTransformer(Rotor* rotor, bool forwards) : m_rotor(rotor), m_forwards(forwards) {}
+            bool encode(EnigmaLetter value) { m_rotor->encode(value, m_forwards); }
+        };
+        
+        bool encode(EnigmaLetter letter, bool forwards);
         Rotor();
-        ~Rotor();
-        Transformer* m_forward;
-        Transformer* m_backward;
+        Rotor* m_next_rotor;
+        RotorTransformer m_forward;
+        RotorTransformer m_backward;
         std::vector<EnigmaLetter> m_mappings;
         std::vector<EnigmaLetter> m_rev_mappings;        
-        int m_a_offset;
+        EnigmaLetter m_a_offset;
         
         // Reads the specified rotor file into a vector m_mappings.
         // Displays error if fails to open.

@@ -50,50 +50,59 @@ void Rotor::load_rotor( const char* file_name )
     return rotor;
 }
 
-Rotor::Rotor() : m_mappings(26), m_rev_mappings(26)
-{
-    m_forward = create_forward_transformer();
-    m_backward = create_backward_transformer()
+// Is it bad to have made m_a_offset an Enigma Letter?
+Rotor::Rotor( Rotor* next_rotor = null ) : m_forward(this, true), m_backward(this,false), m_a_offset('A'){
+    m_next_rotor = next_rotor;
 }
 
+// TODO: Implement smart pointer
 Rotor::~Rotor(){
-    delete m_forward;
-    delete m_backward;
+     delete m_next_rotor;
 }
 
-Transformer* Rotor::create_forward_transformer(){
-    Transformer* forward = new Transformer();
-    return forward;
+Transformer& Rotor::backward(){
+    return m_backward&;
+}
+
+Transformer& Rotor::forward(){
+    return m_forward&;
 }
 
 
-Transformer* Rotor::create_backward_transformer(){
-    Transformer* backward = new Transformer() ;
-    return backward;
-}
+// Rotor::Rotor() : m_mappings(26), m_rev_mappings(26)
+// {
+//     m_forward = create_forward_transformer();
+//     m_backward = create_backward_transformer()
+// }
 
-int Rotor::mod( int x, int m )
-{
-    x %= m;
-    return x < 0 ? x + m : x;
+
+
+// Transformer* Rotor::create_forward_transformer(){
+//     RotorTransformer* forward = new RotorTransformer();
+//     return forward;
+// }
+// 
+// Transformer* Rotor::create_backward_transformer(){
+//     Transformer* backward = new Transformer();
+//     return backward;
+// }
+
+bool Rotor::encode(EnigmaLetter letter, bool forwards){
+    if (forwards){
+        return m_mappings[(m_a_offset + letter)] + letter;
+    } else{
+        return m_rev_mappings[(m_a_offset + letter)] + letter;
+    }
 }
 
 void Rotor::reset(){
     m_a_offset = 0;
 }
 
-int Rotor::map( int x )
+void Rotor::turn()
 {
-    return mod( m_mappings[( m_a_offset + x ) % 26] + x, 26 );
-}
-
-int Rotor::reverse_map( int x )
-{
-    return mod( m_rev_mappings[ ( m_a_offset + x ) % 26 ] + x, 26 );
-}
-
-bool Rotor::turn()
-{
-    m_a_offset = mod( m_a_offset + 1, 26 );
-    return m_a_offset == 0;
+    m_a_offset++;
+    if (m_a_offset.int_value() == 0 && m_next_rotor != null){
+        m_next_rotor.turn();
+    }
 }
