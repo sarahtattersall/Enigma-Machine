@@ -20,6 +20,9 @@ class EnigmaLetter{
         
         // Overrides = operator
         EnigmaLetter operator=(const EnigmaLetter& letter);
+        
+        // Overrides ++ operator
+        void operator++();
 
         char to_char() const;
         int to_int() const;
