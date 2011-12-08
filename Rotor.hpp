@@ -1,6 +1,5 @@
 #ifndef ROTOR_HPP
 #define ROTOR_HPP
-#include "Mapper.hpp"
 #include "Notch.hpp"
 #include "Transformer.hpp"
 #include "EnigmaLetter.hpp"
@@ -12,8 +11,8 @@ class Rotor {
         Rotor( Rotor* next_rotor = null );
         ~Rotor();
         
-        Transformer& forward();
-        Transformer& backward();
+        Transformer* forward();
+        Transformer* backward();
         static Transformer* load_rotor( const char* file_name );
         // Implements a turn of the rotor by increasing m_a_offset
         // Also turns next rotor if nessesary.

@@ -60,11 +60,11 @@ Rotor::~Rotor(){
      delete m_next_rotor;
 }
 
-Transformer& Rotor::backward(){
+Transformer* Rotor::backward(){
     return m_backward&;
 }
 
-Transformer& Rotor::forward(){
+Transformer* Rotor::forward(){
     return m_forward&;
 }
 
