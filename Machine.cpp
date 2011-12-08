@@ -9,12 +9,19 @@ using namespace::std;
 
 static Transformer* Machine::load_machine(){
     Machine* machine = new Machine();
-    // THIS CODE WON'T COMPILE BUT JUST WORKING ON A HUNCH
-    Plugboard* plugboard = new Plugboard();
+    Plugboard* f_plugboard = new Plugboard();
+    Plugboard* b_plugboard = new Plugboard();
     Rotor* rotor1 = new Rotor();
     Reflector* reflector = new Reflector();
-    rotor1.get_backward().
     //create rotors here pass in file names? etc.
+    
+    Transformer* backwards_rotor = rotor1.get_backwards();
+    Transformer* forwards_rotor = rotor1.get_forwards();
+    backwards_rotor->bind(b_plugboard);
+    reflector->bind(backwards_rotor);
+    forwards_rotor.bind(reflector);
+    f_plugboard.bind(forwards_rotor);
+    m_receptor = f_plugboard;
     return machine;
 }
 
