@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include <string.h>
 #include <vector>
 
 // mappings and rev_mappings are both not initialized, and read_file
@@ -14,9 +15,9 @@
 
 using namespace::std;
 
-void Rotor::load_rotor( const char* file_name )
+Rotor* Rotor::load_rotor( const char* file_name, Rotor* next_rotor )
 {
-    Rotor* rotor = new Rotor();
+    Rotor* rotor = new Rotor(next_rotor);
     string input;
     ifstream rotor_file ( file_name);
     if( rotor_file.is_open() )
@@ -27,7 +28,7 @@ void Rotor::load_rotor( const char* file_name )
             getline( rotor_file, input, ' ' );
             if( input.compare( string ("N") ) == 0 )
             {
-                m_notch.add(i);
+                rotor->m_notch.add(i);
             }
             else
             {
@@ -37,9 +38,9 @@ void Rotor::load_rotor( const char* file_name )
                 ++i;
             }
         }
-        if( m_notch.is_empty() )
+        if( rotor->m_notch.is_empty() )
         {
-            m_notch.add(EnigmaLetter(0));
+            rotor->m_notch.add(EnigmaLetter(0));
         }
     }
     else
@@ -51,7 +52,7 @@ void Rotor::load_rotor( const char* file_name )
 }
 
 // Is it bad to have made m_a_offset an Enigma Letter?
-Rotor::Rotor( Rotor* next_rotor = null ) : m_forward(this, true), m_backward(this,false), m_a_offset('A'){
+Rotor::Rotor( Rotor* next_rotor ) : m_forward(this, true), m_backward(this,false), m_a_offset('A'), m_notch(){
     m_next_rotor = next_rotor;
 }
 
@@ -61,11 +62,11 @@ Rotor::~Rotor(){
 }
 
 Transformer* Rotor::backward(){
-    return m_backward&;
+    return m_backward;
 }
 
 Transformer* Rotor::forward(){
-    return m_forward&;
+    return m_forward;
 }
 
 
@@ -102,7 +103,7 @@ void Rotor::reset(){
 void Rotor::turn()
 {
     m_a_offset++;
-    if (m_a_offset.int_value() == 0 && m_next_rotor != null){
-        m_next_rotor.turn();
+    if (m_a_offset.to_int() == 0 && m_next_rotor != NULL){
+        m_next_rotor->turn();
     }
 }

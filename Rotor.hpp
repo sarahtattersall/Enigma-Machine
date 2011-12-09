@@ -8,12 +8,12 @@
 
 class Rotor {
     public:
-        Rotor( Rotor* next_rotor = null );
+        Rotor( Rotor* next_rotor );
         ~Rotor();
         
         Transformer* forward();
         Transformer* backward();
-        static Transformer* load_rotor( const char* file_name );
+        static Rotor* load_rotor( const char* file_name, Rotor* next_rotor );
         // Implements a turn of the rotor by increasing m_a_offset
         // Also turns next rotor if nessesary.
         void turn();
@@ -31,7 +31,10 @@ class Rotor {
     private:    
         class RotorTransformer : public Transformer {
             RotorTransformer(Rotor* rotor, bool forwards) : m_rotor(rotor), m_forwards(forwards) {}
-            bool encode(EnigmaLetter value) { m_receptor.encode(m_rotor->encode(value, m_forwards)); }
+            bool encode(EnigmaLetter value) { m_receptor->encode(m_rotor->encode(value, m_forwards)); }
+            private:
+                Rotor* m_rotor;
+                bool m_forwards;
         };
         
         // Changed from bool to EnigmaLetter. Is this right?
