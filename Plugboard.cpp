@@ -11,7 +11,8 @@ bool Plugboard::encode( EnigmaLetter letter )
     return m_receptor->encode(m_mappings[letter.to_int()]);
 }
 
-Plugboard::Plugboard() : m_mappings(26)
+// TODO: COMMENTED THIS OUT BUT I WANT TO DECLARE SIZE?
+Plugboard::Plugboard() //: /m_mappings(26), 
 {
     int i;
     for( i = 0; i < m_mappings.size(); i++ ){
@@ -19,7 +20,7 @@ Plugboard::Plugboard() : m_mappings(26)
     }
 }
 
-static Transformer* Plugboard::load_plugboard( const char* file_name )
+Transformer* Plugboard::load_plugboard( const char* file_name )
 {
     Plugboard* plugboard = new Plugboard();
     string input;
