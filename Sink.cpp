@@ -1,10 +1,10 @@
 #include "Sink.hpp"
 
-bool Sink::push(int value){
+bool Sink::encode(EnigmaLetter value){
   m_result = value;
   return true;
 }
 
-int Sink::value(){
+EnigmaLetter Sink::value(){
     return m_result;
 }

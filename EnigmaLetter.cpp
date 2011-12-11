@@ -45,9 +45,9 @@ EnigmaLetter EnigmaLetter::operator=(const EnigmaLetter& letter){
     return *this;
 }
 
-void EnigmaLetter::operator++(){
+void EnigmaLetter::operator++(int value){
     if (m_representation != m_error_value){
-        m_representation = mod(m_representation + 1, 26);
+        m_representation = mod(m_representation + value, 26);
     }
 }
 

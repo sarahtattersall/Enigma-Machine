@@ -15,7 +15,7 @@
 
 using namespace::std;
 
-Rotor* Rotor::load_rotor( const char* file_name, Rotor* next_rotor )
+Rotor* Rotor::load_rotor( const char* file_name, Transformer* next_rotor )
 {
     Rotor* rotor = new Rotor(next_rotor);
     string input;
@@ -32,7 +32,9 @@ Rotor* Rotor::load_rotor( const char* file_name, Rotor* next_rotor )
             }
             else
             {
-                int value = atoi( input.c_str() );
+                //int value = atoi( input.c_str() );
+                const char* value = input.c_str();
+                //TODO: THINK IF THIS IS NEGATIVE IT'LL INVALIDATE ENIGMA LETTER?!?
                 rotor->m_mappings[i] = EnigmaLetter(value - i);
                 rotor->m_rev_mappings[value] = EnigmaLetter(i - value);
                 ++i;
@@ -61,11 +63,11 @@ Rotor::~Rotor(){
      delete m_next_rotor;
 }
 
-Transformer* Rotor::backward(){
+Transformer* Rotor::get_backward(){
     return m_backward;
 }
 
-Transformer* Rotor::forward(){
+Transformer* Rotor::get_forward(){
     return m_forward;
 }
 

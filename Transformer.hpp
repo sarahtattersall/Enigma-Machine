@@ -6,6 +6,7 @@
 class Transformer : public Receptor, public Source {
     public:
         bool bind( Receptor* receptor );
+        virtual bool encode(EnigmaLetter letter) = 0;
         
     protected:
         // Consumer

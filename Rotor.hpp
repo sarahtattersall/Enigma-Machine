@@ -11,8 +11,8 @@ class Rotor {
         Rotor( Rotor* next_rotor );
         ~Rotor();
         
-        Transformer* forward();
-        Transformer* backward();
+        Transformer* get_forward();
+        Transformer* get_backward();
         static Rotor* load_rotor( const char* file_name, Rotor* next_rotor );
         // Implements a turn of the rotor by increasing m_a_offset
         // Also turns next rotor if nessesary.
@@ -27,15 +27,16 @@ class Rotor {
         // the wire mappings.
         // bool encode( int x );
 
-        
-    private:    
         class RotorTransformer : public Transformer {
             RotorTransformer(Rotor* rotor, bool forwards) : m_rotor(rotor), m_forwards(forwards) {}
-            bool encode(EnigmaLetter value) { m_receptor->encode(m_rotor->encode(value, m_forwards)); }
+            bool encode(EnigmaLetter value) { return m_receptor->encode(m_rotor->encode(value, m_forwards)); }
             private:
                 Rotor* m_rotor;
                 bool m_forwards;
         };
+        
+    private:    
+        
         
         // Changed from bool to EnigmaLetter. Is this right?
         EnigmaLetter encode(EnigmaLetter letter, bool forwards);

@@ -22,7 +22,7 @@ class EnigmaLetter{
         EnigmaLetter operator=(const EnigmaLetter& letter);
         
         // Overrides ++ operator
-        void operator++();
+        void operator++(int value);
 
         char to_char() const;
         int to_int() const;

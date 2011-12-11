@@ -6,3 +6,4 @@ Important C++ Lessons:
 - Try to only pass const items by reference, otherwise pass pointer.
 - Don't worry too much about const - it's quite misleading (you can still modify things that you call const). However can make a method
 const if it doesn't alter itself.
+- Pointer declaration pointer belongs to Type i.e. Rotor* rot not Rotor *rot. However in case Rotor* rot1, rot2 rot1 is a pointer and rot2 is just a Rotor so you'd have to do Rotor *rot1, *rot2. However declaring them on the same line is nasty. Avoid.

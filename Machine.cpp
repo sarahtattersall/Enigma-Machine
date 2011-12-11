@@ -7,36 +7,46 @@
 #include "CharacterException.hpp"
 using namespace::std;
 
-static Transformer* Machine::load_machine(){
+Transformer* Machine::load_machine( char* plugboard_file, vector<string> rotor_files ){
     Machine* machine = new Machine();
-    Plugboard* f_plugboard = new Plugboard();
-    Plugboard* b_plugboard = new Plugboard();
-    Rotor* rotor1 = new Rotor();
-    Reflector* reflector = new Reflector();
-    //create rotors here pass in file names? etc.
+    Transformer* forwards_plugboard = Plugboard::load_plugboard(plugboard_file);
+    Transformer* backwards_plugboard = Plugboard::load_plugboard(plugboard_file);
+    Rotor* next_rotor = NULL;
+    vector<Rotor*> rotors;
+    for( vector<string>::reverse_iterator rev_itr = rotor_files.rbegin(); rev_itr != rotor_files.rend(); ++rev_itr ){
+        Rotor* rotor = Rotor::load_rotor((*rev_itr).c_str(), next_rotor);
+        rotors.push_back(rotor);
+        next_rotor = rotor;
+    }
+    // **********************************
+    // AHHH WHERE DO I DELETE ALL THESE POINTERS?, IN OTHERS DESTRUCTORS? WHAT ABOUT NEXT_ROTOR?
+    // **********************************
+    Transformer* reflector = new Reflector();
+    Transformer* last_backwards_rotor = rotors.back()->get_backward();
+    Transformer* last_forwards_rotor = rotors.back()->get_forward();
+    Transformer* first_backwards_rotor = rotors.front()->get_backward();
+    Transformer* first_forwards_rotor = rotors.front()->get_forward();
     
-    Transformer* backwards_rotor = rotor1.get_backwards();
-    Transformer* forwards_rotor = rotor1.get_forwards();
-    backwards_rotor->bind(b_plugboard);
-    reflector->bind(backwards_rotor);
-    forwards_rotor.bind(reflector);
-    f_plugboard.bind(forwards_rotor);
-    m_receptor = f_plugboard;
+    machine->m_last = last_backwards_rotor;
+    machine->m_start = forwards_plugboard;
+    
+    first_backwards_rotor->bind(backwards_plugboard);
+    reflector->bind(last_backwards_rotor);
+    last_forwards_rotor->bind(reflector);
+    forwards_plugboard->bind(first_forwards_rotor);
     return machine;
 }
 
 Machine::Machine(){
-    
 }
 
-void Machine::load_rotor_file( const char* file_name )
-{
-    m_rotors.push_back( Rotor(file_name) );
+Machine::~Machine(){
+    delete m_last;
+    delete m_start;
 }
 
-void Machine::load_plug_file( const char* file_name )
-{
-    m_plugboard.read_file( file_name );
+bool Machine::bind(Receptor* receptor){
+    return m_last->bind(receptor);
 }
 
 // TODO: Work out what to do with encode.
@@ -46,16 +56,5 @@ bool Machine::encode( EnigmaLetter value )
   // convert_to_int, it understands non english upper case letters.
   // In general, don't separate tests from operations when they are fundamentaly
   // tied together, write a single operation and test it succeeds instead.
-    m_receptor.encode(mapping);
-        // m_plugboard.map( mapping );
-        // forward_rotor_pass( mapping );
-        // m_reflector.map( mapping );
-        // inverse_rotor_pass( mapping );
-        // m_plugboard.map( mapping );
-        // turn_rotors();
-	// just return the result of the function.
-	// storing it in a variable for no purpose makes it look like you meant
-	// to put some more code in there but forgot.
-        // return value.to_char();
-    return true;
+    return m_start->encode(value);
 }

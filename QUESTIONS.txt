@@ -1,3 +1,5 @@
 What's better have set next rotor method or default parameter in constructor?
 Is it bad to have made m_a_offset an Enigma Letter in Rotor?
 Changed forward() and backward() to return a transformer pointer. Why did Ian have reference?
+Spaces around () preferences?
+char* or string? string will always work char* could point so memory not allocated? Should I change all char*'s to string??

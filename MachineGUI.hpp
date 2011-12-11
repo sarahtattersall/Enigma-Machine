@@ -1,6 +1,7 @@
 #ifndef MACHINE_GUI_HPP
 #define MACHINE_GUI_HPP
 #include "Machine.hpp"
+#include "Sink.hpp"
 #include "EnigmaMachine.hpp"
 
 class MachineGUI : public QMainWindow{
@@ -8,16 +9,7 @@ class MachineGUI : public QMainWindow{
     
     public:
         MachineGUI(Transformer* transformer, QWidget* parent = 0);
-            Sink sink_;
-            Receptor* machine_;
-
-            int encode(int value) {
-              if (!machine_->encode(value)) {
-                // encode failed
-              }
-              return sink_.value();
-            }
-
+        
     public slots:
         // Calls machines load_rotor_file one rotor at a time.
         void load_rotor_files();
@@ -27,7 +19,8 @@ class MachineGUI : public QMainWindow{
         void encrypt_text();
     
     private:
-        Machine *m_machine;
+        Sink* m_sink;
+        Transformer* m_machine;
         Ui::EnigmaMachine ui;
 };
 

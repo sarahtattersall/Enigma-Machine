@@ -1,10 +1,10 @@
 #include "MachineGUI.hpp"
 #include <QtGui/QtGui>
 
-MachineGUI::MachineGUI( Machine *machine, QWidget *parent ): QMainWindow(parent)
+MachineGUI::MachineGUI( Transformer* transformer, QWidget *parent ): QMainWindow(parent), m_sink()
 {
-    if (!transformer.bind(&m_sink)) {
-    // Failed to bind
+    if(!transformer.bind(&m_sink)){
+        //Failed to bind
     }
     m_machine = transformer;
     ui.setupUi( this );
@@ -20,9 +20,7 @@ void MachineGUI::load_rotor_files()
         "Select files to open",
         QString::null,
         "Rotor files (*.rot)");
-
-        int i;
-        for (i = 0; i < files.size(); i++){
+        for (int i = 0; i < files.size(); i++){
             m_machine->load_rotor_file(files.at(i).toAscii().constData());
         }
 }
@@ -58,3 +56,10 @@ void MachineGUI::encrypt_text()
         error.exec();
     }
 }
+
+int encode(EnigmaLetter value) {
+  if (!m_machine->encode(value)) {
+    // encode failed
+  }
+  return m_sink.value();
+ }

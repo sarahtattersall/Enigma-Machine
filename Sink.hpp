@@ -1,11 +1,15 @@
-#ifndef "SINK_HPP"
-#define "SINK_HPP"
+#ifndef SINK_HPP
+#define SINK_HPP
 #include "Receptor.hpp"
+#include "EnigmaLetter.hpp"
 
 class Sink : public Receptor {
-    int m_result;
-    bool push(int value);
-    int value();
+    public:
+        bool encode(EnigmaLetter value);
+        EnigmaLetter value();
+    
+    private:
+        EnigmaLetter m_result;
 };
 
 #endif
