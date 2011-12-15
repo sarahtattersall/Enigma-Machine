@@ -9,29 +9,43 @@
 #include "EnigmaLetter.hpp"
 #include <vector>
 
-class Machine : public Transformer {
-    public:
-        static Transformer* load_machine(  char* plugboard_file, std::vector<std::string> rotor_files );
-        // Encrpyts a char.
-        // If the char is A-Z  converts it to integer
-        // representation then passes through the plugboard, rotors, reflector,
-        // inverse rotors and finally back through the plugboard before
-        // displaying it on screen.
-        // If the char is white space it ignores it.
-        // Anything else and it produces an error.
-        bool encode( EnigmaLetter value );
-        bool bind( Receptor* receptor );
-    
-    private:
-        Machine();
-        ~Machine();
-        std::vector<Rotor> m_rotors;
-        Transformer* m_last;
-        Transformer* m_start;
-        // Plugboard m_plugboard;
-        // Reflector m_reflector;
-        Ui::EnigmaMachine ui;
+using std::vector;
 
+class Machine : public Transformer {
 };
 
+class TransformerBuilder {
+public:
+    virtual Transformer* create() = 0;
+};
+class PlugboardBuilder {
+    PlugboardBuilder(const string& filename) { setFile(filename); }
+};
+
+class MachineBuilder : public TransformerBuilder {
+public:
+    MachineBuilder& setPlugboard(const PlugboardBuilder& builder);
+    MachineBuilder& addRotor(const Rotor& builder)
+    {
+        // do something here... blah;
+        return *this;
+    }
+    // if haven't set rotors and plugboard crete should refuse.
+    Machine* create();
+private:
+    PlugboardBuilder m_plugbloard;
+    vector<RotorBuilder> m_rotors;
+};
+
+// MachineBuilder myBuilder;
+// myBuilder.setPlugboard("somefilename");
+
+createMyThing("somestring");
+
+MyThingBuilder("somestring")
+    .setStyle("cheesy")
+    .create();
+
+// blah
+//     auto_ptr<Transformer> myTransformer = myBuilder();
 #endif

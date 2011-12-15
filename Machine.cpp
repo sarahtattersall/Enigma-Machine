@@ -7,8 +7,42 @@
 #include "CharacterException.hpp"
 using namespace::std;
 
+
+class MachineImpl : public Machine {
+    public:
+        static Transformer* load_machine(  char* plugboard_file, std::vector<std::string> rotor_files );
+        // Encrpyts a char.
+        // If the char is A-Z  converts it to integer
+        // representation then passes through the plugboard, rotors, reflector,
+        // inverse rotors and finally back through the plugboard before
+        // displaying it on screen.
+        // If the char is white space it ignores it.
+        // Anything else and it produces an error.
+        bool encode( EnigmaLetter value );
+        bool bind( Receptor* receptor );
+    
+    private:
+        Machine();
+        ~Machine();
+        std::vector<Rotor> m_rotors;
+        Transformer* m_last;
+        Transformer* m_start;
+        // Plugboard m_plugboard;
+        // Reflector m_reflector;
+        Ui::EnigmaMachine ui;
+
+};
+//  Move this to builder.
 Transformer* Machine::load_machine( char* plugboard_file, vector<string> rotor_files ){
     Machine* machine = new Machine();
+    // Make all these pointers owned by machine.
+    // Use scoped pointer (auto_pointer in memory library).
+    // Destory vs. Delete
+    // Object a;
+    // Object* b = new Object();
+    // 
+    // b->~Object();
+    // free(b);
     Transformer* forwards_plugboard = Plugboard::load_plugboard(plugboard_file);
     Transformer* backwards_plugboard = Plugboard::load_plugboard(plugboard_file);
     Rotor* next_rotor = NULL;
@@ -20,6 +54,8 @@ Transformer* Machine::load_machine( char* plugboard_file, vector<string> rotor_f
     }
     // **********************************
     // AHHH WHERE DO I DELETE ALL THESE POINTERS?, IN OTHERS DESTRUCTORS? WHAT ABOUT NEXT_ROTOR?
+    // Shared pointers from boost, if you don't have cycles...
+    // 
     // **********************************
     Transformer* reflector = new Reflector();
     Transformer* last_backwards_rotor = rotors.back()->get_backward();

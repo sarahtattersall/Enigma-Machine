@@ -7,3 +7,27 @@ Important C++ Lessons:
 - Don't worry too much about const - it's quite misleading (you can still modify things that you call const). However can make a method
 const if it doesn't alter itself.
 - Pointer declaration pointer belongs to Type i.e. Rotor* rot not Rotor *rot. However in case Rotor* rot1, rot2 rot1 is a pointer and rot2 is just a Rotor so you'd have to do Rotor *rot1, *rot2. However declaring them on the same line is nasty. Avoid.
+- Type chaining (can't remember proper name) is super cool! If you have a constructer that only takes one parameter you can chain as follows:
+class PlugboardBuilder {
+    PlugboardBuilder(const string& filename) { setFile(filename); }
+}
+class MachineBuilder : public TransformerBuilder {
+public:
+    MachineBuilder& setPlugboard(const PlugboardBuilder& builder);
+	// other functions...
+private:
+    PlugboardBuilder m_plugbloard;
+};
+
+// MachineBuilder myBuilder;
+// myBuilder.setPlugboard("somefilename");
+This code knows that setPlugboard takes a plugboard which can be constructed via a string which can be constructed via char* so it makes it for you :)
+
+- Builder pattern is far better than the factory pattern (Ian would never really use the factory pattern):
+An example can be seen in Machine.hpp
+Never mix up the two I.e. Machine* create(bool param). That's intermixing factory and builder and is bad practice!
+
+- Can chain lots of methods (and put .method() on different lines) as follows:
+MyThingBuilder("somestring")
+    .setStyle("cheesy")
+    .create();
